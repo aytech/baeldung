@@ -1,6 +1,5 @@
 package com.lists.utility;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
