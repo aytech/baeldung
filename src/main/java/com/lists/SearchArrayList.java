@@ -7,20 +7,21 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+// Case-Insensitive Searching in ArrayList
+// https://www.baeldung.com/java-arraylist-case-insensitive-search
 public class SearchArrayList {
   static List<String> languages = Arrays.asList("Java", "Python", "Kotlin", "Ruby", "Javascript", "Go");
 
   public static void main(String[] args) {
 
     // Element cannot be found if provided in not matching case
-    String invalidSearchString = "jAvA";
     System.out.println("Match: " + languages.contains("jAvA"));
     assertFalse(languages.contains("jAvA"));
 
     // Solutions:
     // 1. Using Stream API:
     // https://www.baeldung.com/java-8-streams
-    invalidSearchString = "koTliN";
+    String invalidSearchString = "koTliN";
     System.out.println("Match with Stream API: " + languages.stream().anyMatch(invalidSearchString::equalsIgnoreCase));
     assertTrue(languages.stream().anyMatch(invalidSearchString::equalsIgnoreCase));
 

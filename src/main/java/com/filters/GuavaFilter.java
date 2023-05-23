@@ -1,5 +1,6 @@
 package com.filters;
 
+import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
@@ -8,11 +9,10 @@ import com.google.common.collect.Lists;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Predicate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /*
   Filtering and transforming collections using Guava
@@ -38,6 +38,8 @@ public class GuavaFilter {
     filterWithMultiplePredicates(names);
     // Remove null values when filtering a collection
     filterWithNullValues(names);
+    // Check if all elements in a collection match a condition
+    checkAllElementsMatchCondition(names);
   }
 
   private static void filterCollection(List<String> listToFilter) {
@@ -90,5 +92,15 @@ public class GuavaFilter {
     Collection<String> result = Collections2.filter(listToFilter, Objects::nonNull);
     assertEquals(4, result.size());
     assertThat(result, containsInAnyOrder("John", "Jane", "Adam", "Tom"));
+  }
+
+  private static void checkAllElementsMatchCondition(List<String> names) {
+//    List<String> names = Lists.newArrayList("John", "Jane", "Adam", "Tom");
+    Predicate<CharSequence> predicate = Predicates.containsPattern("n|m");
+    boolean result = Iterables.all(names, predicate);
+    assertTrue(result);
+
+    result = Iterables.all(names, Predicates.containsPattern("a"));
+    assertFalse(result);
   }
 }
